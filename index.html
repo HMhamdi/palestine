@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موقع الإعلانات</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+@font-face {
+  font-family: 'San Francisco';
+  font-style: normal;
+  font-weight: 400;
+  src: url('https://cdn.jsdelivr.net/gh/csstools/sanitize.css/fonts/sf-pro-text-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Apple Color Emoji';
+  src: local('Apple Color Emoji');
+}
+:root {
+  --primary-color: #007aff;
+  --background-color: #f3f3f3;
+  --text-color: #333;
+  --container-bg-color: #fff;
+  --button-bg-color: #007aff;
+  --button-hover-bg-color: #005bb5;
+  --shadow-color: rgba(0, 122, 255, 0.3);
+}
+body.dark-mode {
+  --primary-color: #ff9500;
+  --background-color: #121212;
+  --text-color: #e5e5e5;
+  --container-bg-color: #1e1e1e;
+  --button-bg-color: #ff9500;
+  --button-hover-bg-color: #d47c00;
+  --shadow-color: rgba(255, 149, 0, 0.3);
+}
+body {
+  font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--background-color) 30%, #e8e8e8 100%);
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  animation: fade-in 0.5s ease;
+  user-select: none; /* منع نسخ النصوص */
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.container {
+  width: 95%;
+  max-width: 400px;
+  padding: 10px;
+  background-color: var(--container-bg-color);
+  border-radius: 20px;
+  box-shadow: 20px 20px 50px #d1d1d1, -20px -20px 50px #ffffff;
+  overflow: hidden;
+  animation: slide-in 0.5s ease;
+  position: relative;
+  margin-bottom: 20px;
+}
+@keyframes slide-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #ececec;
+}
+.header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header .logo img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 10px 10px 30px #d1d1d1, -10px -10px 30px #ffffff;
+}
+.header .logo img:active {
+  transform: scale(1.2);
+}
+.header .menu-button {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.header .menu-button:active {
+  color: var(--primary-color);
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  background-color: var(--container-bg-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 90%;
+  max-width: 300px;
+  animation: dropdown-fade 0.3s ease;
+  z-index: 10;
+}
+@keyframes dropdown-fade {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.dropdown.active {
+  display: block;
+}
+.dropdown input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ececec;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  font-family: 'San Francisco', 'Apple Color Emoji';
+}
+.dark-mode-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 10px auto 0;
+  border-radius: 50%;
+  background-color: var(--button-bg-color);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px var(--shadow-color);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+.dark-mode-toggle:active {
+  transform: scale(1.1);
+  box-shadow: 0 6px 15px var(--shadow-color);
+}
+.advertisement {
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  border-bottom: 1px solid #ececec;
+}
+.advertisement:last-child {
+  border-bottom: none;
+}
+.advertisement h2 {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-bottom: 10px;
+  font-family: 'San Francisco', 'Apple Color Emoji';
+}
+.advertisement img {
+  width: 100%;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.advertisement:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  border-radius: 25px;
+  background-color: var(--button-bg-color);
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px var(--shadow-color);
+}
+.button:hover {
+  background-color: var(--button-hover-bg-color);
+  box-shadow: 0 6px 15px var(--shadow-color);
+}
+.image-box {
+  width: 95%;
+  max-width: 400px;
+  padding: 20px;
+  background: var(--container-bg-color);
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px #d1d1d1, -10px -10px 30px #ffffff;
+  overflow: hidden;
+  margin-bottom: 20px; /* إعادة حجم المربع كما كان من قبل */
+}
+.image-box img {
+  width: 100%;
+  border-radius: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.image-box:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 600px;
+  }
+  .advertisement h2 {
+    font-size: 1.25rem;
+  }
+  .button {
+    font-size: 1rem;
+  }
+  .image-box {
+    max-width: 600px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 800px;
+  }
+  .advertisement h2 {
+    font-size: 1.5rem;
+  }
+  .button {
+    font-size: 1.125rem;
+  }
+  .image-box {
+    max-width: 800px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="logo">
+      <a href="https://www.facebook.com/profile.php?id=100094716450606&mibextid=ZbWKwL" target="_blank">
+        <img src="lgoo HM.jpg" alt="شعار HM">
+      </a>
+      <a href="https://www.facebook.com/silverwolf7952?mibextid=ZbWKwL" target="_blank">
+        <img src="lgo AM.jpg" alt="شعار AM">
+      </a>
+    </div>
+    <i class="fas fa-bars menu-button" onclick="toggleDropdown()"></i>
+  </div>
+  <div class="dropdown" id="dropdownMenu">
+    <input type="text" placeholder="ابحث في الموقع 🔍">
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()" title="تبديل وضع الظلام">
+      <i class="fas fa-moon"></i>
+    </div>
+  </div>
+  <div class="advertisement">
+    <h2>الإعلان الأول: تخفيضات الصيف! ☀️</h2>
+    <img src="advertisement_image1.jpg" alt="إعلان تخفيضات الصيف">
+    <a href="#" class="button">المزيد</a>
+  </div>
+  <div class="advertisement">
+    <h2>الإعلان الثاني: منتجات جديدة ومثيرة 🚀</h2>
+    <img src="advertisement_image2.jpg" alt="إعلان منتجات جديدة">
+    <a href="#" class="button">المزيد</a>
+  </div>
+  <div class="advertisement">
+    <h2>الإعلان الثالث: عروض خاصة لعملاء VIP 🎁</h2>
+    <img src="advertisement_image3.jpg" alt="إعلان عروض VIP">
+    <a href="#" class="button">المزيد</a>
+  </div>
+  <div class="advertisement">
+    <h2>الإعلان الرابع: تجربة تسوق فريدة 🛒</h2>
+    <img src="advertisement_image4.jpg" alt="إعلان تجربة تسوق">
+    <a href="#" class="button">المزيد</a>
+  </div>
+  <div class="advertisement">
+    <h2>الإعلان الخامس: الهدايا المثالية لأحبائك 🎉</h2>
+    <img src="advertisement_image5.jpg" alt="إعلان هدايا">
+    <a href="#" class="button">المزيد</a>
+  </div>
+</div>
+<div class="image-box">
+  <img src="palestine.png" alt="صورة مخصصة">
+</div>
+<script>
+function toggleDropdown() {
+  const dropdown = document.getElementById('dropdownMenu');
+  dropdown.classList.toggle('active');
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const icon = document.querySelector('.dark-mode-toggle i');
+  if (document.body.classList.contains('dark-mode')) {
+    icon.classList.remove('fa-moon');
+    icon.classList.add('fa-sun');
+  } else {
+    icon.classList.remove('fa-sun');
+    icon.classList.add('fa-moon');
+  }
+}
+</script>
+</body>
+</html>
